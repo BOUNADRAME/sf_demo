@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Nos Student{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Liste des étudiants ✅</h1>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Matricule</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Age</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for st in students %}
+            <tr>
+                <td>{{ st.id }}</td>
+                <td>{{ st.matricule }}</td>
+                <td>{{ st.nom }}</td>
+                <td>{{ st.prenom }}</td>
+                <td>{{ st.age }} ans</td>
+                <td class="text-center">
+                    <a href="{{ path('student_show', {'id': st.id}) }}">détail</a>
+                    <a href="{{ path('student_edit', {'id': st.id}) }}">edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

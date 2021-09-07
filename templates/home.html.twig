@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Home
+{% endblock %}
+
+{% block body %}
+	<h1>{{ title | upper }}</h1>
+
+	{# commentaire #}
+	<p>Comment allez-vous</p>
+	{% if age > 18 %}
+		<p>{{ age }}
+			ans vous êtes majeur !</p>
+	{% elseif age >= 12 %}
+		<p>{{ age }}
+			ans vous êtes adolescent !</p>
+	{% else %}
+		<p>{{ age }}
+			ans vous êtes un enfant !</p>
+	{% endif %}
+
+	{% for compteur in 1..10 %}
+		<em>n°
+			{{loop.index0}}
+			=
+			{{ compteur }}</em>
+		<br>
+	{% endfor %}
+{% endblock %}

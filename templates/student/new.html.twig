@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Create Student {% endblock %}
+
+{# informer twig que nous utilisons le template courant #}
+{% form_theme form 'student/_collection.html.twig' %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Création d'un étudiant ✅</h1>
+
+    {# balance tout le formulaire #}
+    {# {{ form(form) }} #}
+
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <div class="form-group text-center" style="margin-top: 3px">
+        <button type="submit" class="btn btn-primary">Create Student</button>
+    </div>
+
+    {{ form_end(form) }}
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            $('#add-image').click(function() {
+                // je récupère le numéro des futures champs à créer !
+                //const index = $('#student_images div.form-group').length;
+                const index = +$("#widgets_counter").val();
+
+                // Je récupère le prototype des entrées
+                const tmpl = $('#student_images').data('prototype').replace(/__name__/g, index);
+                
+                // J'injecte ce code dans le div
+                $('#student_images').append(tmpl);
+
+                // incremente la valeur du nombre suivant
+                $("#widgets_counter").val(index + 1);
+
+                // Je gère le button à supprimer
+                handleButtonsDelete();
+            });
+
+            // supprimer une ligne d'une image
+            function handleButtonsDelete(){
+                $('button[data-action="delete"]').click(function(){
+                    const target = this.dataset.target;
+                    console.log(target);
+                    $(target).remove();
+                });
+            }
+
+            // initialisation pour les données en édition
+            handleButtonsDelete();
+        })
+    </script>
+{% endblock %}
