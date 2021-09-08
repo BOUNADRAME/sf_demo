@@ -10,11 +10,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StudentController extends AbstractController
 {
-    #[Route('/students', name: 'students_index')]
+   
+    /**
+     * Permet d'afficher la liste des students
+     * 
+     * @Route("/students", name="students_index")
+     * @IsGranted("ROLE_USER")
+     * @param StudentRepository $repo
+     * @return Response
+     */
     public function index(StudentRepository $repo): Response
     {
         // $repo = $this->getDoctrine()->getRepository(Student::class);
@@ -24,22 +34,10 @@ class StudentController extends AbstractController
             'students' => $students,
         ]);
     }
-
-    // /**
-    //  * Permet d'afficher un étudiant grâce à son id
-    //  * @Route("students/{id}", name="student_show", requirements={"id"="\d+"})
-    //  */
-    // public function show($id, StudentRepository $repo): Response
-    // {
-    //     $student = $repo->findOneById($id);
-
-    //     return $this->render('student/detail.html.twig', [
-    //         'student' => $student
-    //     ]);
-    // }
     
     /**
      * @Route("/students/new", name="students_new")
+     * @IsGranted("ROLE_USER")
      */
     public function create(Request $request): Response
     {   
@@ -81,6 +79,7 @@ class StudentController extends AbstractController
     /**
      * Permet de modifier un student 
      * @Route("/students/{id}/edit", name="student_edit", requirements={"id"="\d+"})
+     * @Security("is_granted('ROLE_USER')")
      * @return Response
      */
     public function edit(Student $student, Request $request): Response
@@ -119,13 +118,37 @@ class StudentController extends AbstractController
     /**
      * Notion de ParamConverter
      * Permet d'afficher un étudiant grâce à son id
-     * @Route("/students/{id}", name="student_show", requirements={"id"="\d+"})
+     * @Route("/students/{id}/show", name="student_show", requirements={"id"="\d+"})
+     * @IsGranted("ROLE_USER")
      */
     public function show(Student $student): Response
     {
         return $this->render('student/detail.html.twig', [
             'student' => $student
         ]);
+    }
+
+    /**
+     * Notion de ParamConverter
+     * Permet de supprimer un étudiant grâce à son id
+     * @Route("/students/{id}/delete", name="student_delete", requirements={"id"="\d+"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function delete(Student $student): Response
+    {
+        $mat = $student->getMatricule();
+        $manager = $this->getDoctrine()->getManager();
+        
+        $manager->remove($student);
+        $manager->flush();
+
+        $this->addFlash(
+            'warning',
+            "L'étudiant au matricule  <strong> {$student->getMatricule()} </strong> a bien été supprimé !"
+        );
+
+        return $this->redirectToRoute('students_index');
+
     }
 
 }

@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Student;
@@ -28,6 +29,23 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
+
+        $adminRole = new Role();
+        $adminRole->setTitle('ROLE_ADMIN');
+        $manager->persist($adminRole);
+
+        // create admin user
+        $userAdmin = new User();
+        $userAdmin->setFirstName('ansd')
+                ->setLastName('2021')
+                ->setEmail('devops@ansd.sn')
+                ->setIntroduction($faker->sentence())
+                ->setDescription('<p>'.join('</p><p>', $faker->paragraphs(3)))
+                ->setPassword($this->encoder->encodePassword($userAdmin, 'password'))
+                ->setPicture("https://randomuser.me/api/portraits/55.jpg")
+                ->addUserRole($adminRole)
+            ;
+        $manager->persist($userAdmin);
 
         $users = [];
         $genres = ['male', 'female'];

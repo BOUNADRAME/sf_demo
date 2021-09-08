@@ -33,6 +33,8 @@
                 <td class="text-center">
                     <a href="{{ path('student_show', {'id': st.id}) }}">détail</a>
                     <a href="{{ path('student_edit', {'id': st.id}) }}">edit</a>
+                    <a href="{{ path('student_delete', {'id': st.id}) }}" 
+                    onclick="return confirm(`Etes-vous sûr de vouloir supprimer ce student au matricule: {{ st.matricule }}.`)">supprimer</a>
                 </td>
             </tr>
             {% endfor %}
