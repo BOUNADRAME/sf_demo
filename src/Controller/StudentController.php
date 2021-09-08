@@ -57,6 +57,8 @@ class StudentController extends AbstractController
                 $manager->persist($image);
             }
 
+            $student->setAuthor($this->getUser());
+
             $manager->persist($student);
             $manager->flush();
             
@@ -66,7 +68,9 @@ class StudentController extends AbstractController
                 "L'étudiant <strong> {$student->getPrenom()} </strong> a bien été inscrit !"
             );
             // redirection vers la liste des students
-            return $this->redirectToRoute('students_index');
+            return $this->redirectToRoute('student_show', [
+                'id' => $student->getId()
+            ]);
         }
 
         return $this->render('student/new.html.twig', [

@@ -57,6 +57,12 @@ class Student
      */
     private $matricule;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="students")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -90,28 +96,6 @@ class Student
 
         return $this;
     }
-
-    // /**
-    //  * @ORM\PrePersist
-    //  * @ORM\PreUpdate
-    //  */
-    // public function initializeDateNaissance(){
-    //     if(empty($this->dateNaissance)){
-    //         $dateNaissance = new DateTime();
-    //     }
-    // }
-
-    // public function getDateNaissance(): ?\DateTimeInterface
-    // {
-    //     return $this->dateNaissance;
-    // }
-
-    // public function setDateNaissance(\DateTimeInterface $dateNaissance): self
-    // {
-    //     $this->dateNaissance = $dateNaissance;
-
-    //     return $this;
-    // }
 
     public function getAge(): ?int
     {
@@ -163,6 +147,18 @@ class Student
     public function setMatricule(string $matricule): self
     {
         $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

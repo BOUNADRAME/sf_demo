@@ -93,3 +93,11 @@ php bin/console make:crud [Entity]
 </div> -->
 
 #}
+
+# install slugify dependency
+
+$ composer require cocur/slugify
+
+# avatar aleatoire
+
+https://randomuser.me/

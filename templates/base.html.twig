@@ -11,14 +11,20 @@
 		and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 		{#{{ encore_entry_link_tags('app') }}#}
-		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+		<style>
+			.badge{
+				color: white !important; 
+				background-color: red !important;
+			}
+		</style>
 		{% endblock %}
 
 		{% block javascripts %}
 		{#{{ encore_entry_script_tags('app') }}#}
-		<script src="/js/jquery-3.2.1.slim.min.js"></script>
-		<script src="/js/popper.min.js"></script>
-		<script src="/js/bootstrap.min.js"></script>
+		<script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}"></script>
+		<script src="{{ asset('js/popper.min.js') }}"></script>
+		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 		{% endblock %}
 	</head>
 

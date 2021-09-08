@@ -3,6 +3,10 @@
         "*.twig": "twig"
     },
     "emmet.includeLanguages": {
-        "twig": "html"
+        "twig": "html",
+        "javascript": "html"
     },
+    "html.suggest.html5": true,
+    "html.autoClosingTags": false,
+    "html.format.enable": true
 }
