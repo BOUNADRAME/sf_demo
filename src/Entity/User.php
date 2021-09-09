@@ -290,7 +290,6 @@ class User implements UserInterface
         })->toArray();
  
          $roles[] = "ROLE_USER";
-         dump($roles);
          return $roles;
      }
 

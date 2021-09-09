@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Image;
 use App\Entity\Student;
 use App\Form\StudentType;
+use App\Service\Pagination;
 use App\Repository\StudentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,18 +21,18 @@ class StudentController extends AbstractController
     /**
      * Permet d'afficher la liste des students
      * 
-     * @Route("/students", name="students_index")
+     * @Route("/students/{page<\d+>?1}", name="students_index")
      * @IsGranted("ROLE_USER")
      * @param StudentRepository $repo
      * @return Response
      */
-    public function index(StudentRepository $repo): Response
+    public function index(StudentRepository $repo, $page, Pagination $pagination): Response
     {
-        // $repo = $this->getDoctrine()->getRepository(Student::class);
-        $students = $repo->findAll();
+       $pagination->setEntityClass(Student::class)
+                  ->setPage($page);
 
         return $this->render('student/index.html.twig', [
-            'students' => $students,
+            'pagination' => $pagination
         ]);
     }
     

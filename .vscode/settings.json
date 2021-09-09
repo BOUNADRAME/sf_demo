@@ -8,5 +8,5 @@
     },
     "html.suggest.html5": true,
     "html.autoClosingTags": false,
-    "html.format.enable": true
+    "html.format.enable": true,
 }

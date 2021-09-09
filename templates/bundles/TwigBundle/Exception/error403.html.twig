@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Interdit {% endblock %}
+
+{% block body %} 
+    <div class="container">
+        <h1>Accès Interdit</h1>
+        <div class="div alert alert-danger">
+            Vous n'avez pas le droit d'accéder à cette ressource !
+        </div>
+        <a href="{{ path('students_index') }}" class="btn btn-primary">Retour à l'acceuil</a>
+    </div>
+{% endblock %}

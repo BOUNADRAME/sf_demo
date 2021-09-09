@@ -101,3 +101,19 @@ $ composer require cocur/slugify
 # avatar aleatoire
 
 https://randomuser.me/
+
+# tester la page d'erreur 404
+
+    1. creer l'arborescence
+    templates/bundles/TwigBundle/error404.html.twig
+    2. tester si ca marche
+    - en mode dev : http://localhost:8000/_error_/404
+    - .env mettre APP_ENV=prod
+
+# pagination
+
+Service/Pagination
+
+# Objects qui peuvent injecter dans les services
+
+php bin/console debug:container
