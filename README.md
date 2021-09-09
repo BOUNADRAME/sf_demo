@@ -117,3 +117,12 @@ Service/Pagination
 # Objects qui peuvent injecter dans les services
 
 php bin/console debug:container
+
+# pour webpack
+
+composer require encore
+npm install
+
+# uninstall a package
+
+composer remove encore
